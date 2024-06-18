@@ -33,6 +33,6 @@ app.use('/owner', owner);
 app.use('/customer', customer);
 
 
-app.listen(3000, function(){
+app.listen(6666, function(){
   console.log("Server started on port 3000.");
 });
