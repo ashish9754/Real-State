@@ -8,7 +8,7 @@ require('dotenv').config()
 app.use(express.static("public"));
 
 const mongoose = require('mongoose');
-mongoose.connect(process.env.DB_PATH,{ useUnifiedTopology: true,useNewUrlParser: true });
+mongoose.connect("mongodb+srv://ashishpatidar9754:Bd8oRwYnm3gbmdry@mymongodb.kygsun5.mongodb.net/mymongodb?retryWrites=true&w=majority",{ useUnifiedTopology: true,useNewUrlParser: true });
 var db=mongoose.connection;
 db.on('error', console.log.bind(console, "connection error"));
 db.once('open', function(callback){console.log("MongoDatabase Connected Successfully");});
