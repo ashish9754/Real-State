@@ -1,0 +1,135 @@
+<style>
+    @font-face {
+        font-family: 'Product Sans', Sans-Serif;
+        font-style: normal;
+        src: local('Open Sans'), local('OpenSans'), url(https://fonts.gstatic.com/s/productsans/v5/HYvgU2fE2nRJvZ5JFAumwegdm0LZdjqr5-oayXSOefg.woff2) format('woff2');
+    }
+
+    .course_section {
+        margin: 30px;
+        font-family: Product Sans, Sans-Serif;
+    }
+
+    .course_section .card-column .card .card-title {
+        color: black;
+        font-weight: 700;
+    }
+
+    .course_section .card-column .card .card-text {
+        color: #000;
+    }
+
+
+    .course_section .card-column .card .card-body a {
+        font-weight: 700;
+        font-size: 15px;
+        line-height: 18.2px;
+        color: white;
+    }
+
+    .course_section .card-column .card .card-body a span {
+        margin-left: 5px;
+    }
+
+    .course_section .card-column .card .card-body button {
+        width: 230px;
+        height: 43px;
+        border-radius: 3px;
+        background: #056FD8;
+        color: white;
+        font-weight: 700;
+        font-size: 17px;
+        line-height: 20.62px;
+    }
+
+    .course_section .card-column .card .card-body .applybtn {
+        margin-top: 15px;
+        text-align: center;
+    }
+
+    @media screen and (max-width: 480px) {
+        .course_section .card-column .card {
+            width: 100%;
+        }
+
+        .course_section .card-column .card .card-body button {
+            width: 100%;
+        }
+
+        .course_section .card-column .card .card-body {
+            margin-top: 55%;
+        }
+
+    }
+</style>
+<div class="row course_section">
+    {{#each list}}
+    <div class="col-lg-4 col-md-6 col-sm-12 mt-5 card-column">
+        <div class="card">
+            <img class="card-img-top" src="properties.png" alt="a snow-capped mountain range" />
+
+            <div class="card-body">
+                <h2 class="card-title" id="propertyname_{{this.propertyid}}">{{this.propertyname}}</h2>
+                <p class="card-text"><b>Status:- </b>{{this.propertystatus}}</p>
+                <p class="card-text"><b>Type:- </b>{{this.propertytype}}</p>
+                <p class="card-text">{{this.propertybhk}}<b> BHK</b></p>
+                <p class="card-text">{{this.area}}<b> SQ. Ft</b></p>
+                <p class="card-text"><b>Price:- </b>{{this.price}}</p>
+                <p class="card-text"><b>Location:- </b>{{this.location}}</p>
+                <div class="applybtn"><button  onclick="regMoadal({{this.propertyid}})" data-toggle="modal" data-target="#exampleModal">Ragistration</button></div>
+            </div>
+        </div>
+    </div>
+    {{/each}}
+</div>
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Ragistration</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+        <form action="/customer/registrationsub" method="POST" autocomplete="off">
+            <div class="form-group">
+                <label>Property Name</label>
+                <input type="text" class="form-control" id="propertyname_modal" name="propertyname" placeholder="Property Name" value="">
+            </div>
+            <div class="form-group d-none"> 
+                <label>Customer Name</label>
+                <input type="text" class="form-control" id="customername" name="customername" placeholder="Customer Name" value="Ashish">
+            </div>
+            <div class="form-group">
+              <label>Registration Date</label>
+              <input type="date" class="form-control" id="registrationdate"  name="registrationdate" placeholder="Registration Date" value="">
+            </div>
+            <div class="form-group">
+                <label>Registration Status</label>
+                <input type="text" class="form-control" id="registrationstatus" name="registrationstatus" placeholder="Registration Status" value="pending">
+            </div>
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary">Save changes</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function regMoadal(pid){
+        var propertyname = $("#propertyname_"+pid).text();
+        $("#propertyname_modal").val(propertyname);
+        var date=new Date();
+        console.log(date)
+        var formattedDate = date.getFullYear() + '-' + 
+                            ('0' + (date.getMonth() + 1)).slice(-2) + '-' + 
+                            ('0' + date.getDate()).slice(-2);
+        
+        $("#registrationdate").val(formattedDate);
+    }
+  </script>
